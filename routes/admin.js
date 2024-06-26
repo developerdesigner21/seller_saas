@@ -99,4 +99,29 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// fetch All User
+router.get("/fetchAllUser", async (req, res) => {
+  try {
+    // check for user
+    const userFind = await query(`SELECT * FROM "user"`,[]);
+    if (userFind.length < 1) {
+      return res.json({
+        success: false,
+        msg: "User List is empty",
+        code: 201,
+      });
+    }else{
+      res.json({
+        msg: "Success",
+        data: userFind,
+        code: 200,
+      });
+    }
+
+  } catch (err) {
+    res.json({ success: false, msg: "something went wrong", err, code: 201 });
+    console.log(err);
+  }
+});
+
 module.exports = router;

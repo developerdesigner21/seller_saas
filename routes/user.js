@@ -42,7 +42,6 @@ router.post("/signup", async (req, res) => {
       [email, country_code, mobile_number]
     );
     if (findEx.length > 0) {
-      console.log("findEx::::::", findEx[0]);
       if (
         findEx[0].email == email &&
         findEx[0].mobile_number == mobile_number
@@ -142,31 +141,6 @@ router.post("/login", async (req, res) => {
         code: 200,
       });
     }
-  } catch (err) {
-    res.json({ success: false, msg: "something went wrong", err, code: 201 });
-    console.log(err);
-  }
-});
-
-// fetch All User
-router.get("/fetchAllUser", async (req, res) => {
-  try {
-    // check for user
-    const userFind = await query(`SELECT * FROM "user"`,[]);
-    if (userFind.length < 1) {
-      return res.json({
-        success: false,
-        msg: "User List is empty",
-        code: 201,
-      });
-    }else{
-      res.json({
-        msg: "Success",
-        data: userFind,
-        code: 200,
-      });
-    }
-
   } catch (err) {
     res.json({ success: false, msg: "something went wrong", err, code: 201 });
     console.log(err);
